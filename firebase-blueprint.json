@@ -1,0 +1,117 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Details about a lifestyle product offered for sale.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "healthBenefits": { "type": "string" },
+        "stock": { "type": "integer" },
+        "imageUrl": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["name", "price", "stock"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A purchase record containing items, delivery address, and status.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerEmail": { "type": "string", "format": "email" },
+        "customerName": { "type": "string" },
+        "customerAddress": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "coordinates": {
+           "type": "object",
+           "properties": {
+             "lat": { "type": "number" },
+             "lng": { "type": "number" }
+           }
+        },
+        "items": { 
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": { "type": "string" },
+              "name": { "type": "string" },
+              "quantity": { "type": "integer" },
+              "priceAtPurchase": { "type": "number" }
+            }
+          }
+        },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "completed", "cancelled"] },
+        "distributorId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerEmail", "customerName", "customerAddress", "items", "totalAmount", "status", "createdAt"]
+    },
+    "Distributor": {
+      "title": "Distributor",
+      "description": "Information about registered distributors.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email", "status"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "System administrators.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Buyer testimonials with photos and feedback.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "text": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "rating": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "text", "rating", "createdAt"]
+    }
+  },
+  "firestore": {
+    "products": {
+      "schema": "Product",
+      "description": "Public products catalog."
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "All customer and distributor orders."
+    },
+    "distributors": {
+      "schema": "Distributor",
+      "description": "Registered distributors for the system."
+    },
+    "admins": {
+      "schema": "Admin",
+      "description": "Authenticated system administrators."
+    },
+    "testimonials": {
+      "schema": "Testimonial",
+      "description": "Public buyer testimonials or reviews."
+    }
+  }
+}

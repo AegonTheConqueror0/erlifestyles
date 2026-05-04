@@ -1,0 +1,6 @@
+{
+  "name": "ER Lifestyles Wellness",
+  "description": "A premium health and wellness platform for high-quality supplements and vitamins, featuring customer shopping, distributor order management, and admin oversight.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": []
+}
