@@ -8,7 +8,8 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <h3 className="font-serif text-3xl italic text-white mb-8">ER Lifestyles</h3>
             <p className="max-w-sm text-sm font-light text-white/40 leading-relaxed mb-10">
-              Curating refined essentials for the modern lifestyle. Our commitment to excellence is reflected in every item we broadcast.
+              © 2026 Lifestyles International Holdings Corporation. All Rights Reserved.
+Lifestyles is a proud member of the United States Direct Selling Association (DSA)
             </p>
             <div className="flex gap-6">
               {[Facebook, Instagram, Twitter].map((Icon, i) => (
@@ -33,11 +34,11 @@ export default function Footer() {
             <ul className="space-y-6">
               <li className="flex items-center gap-4">
                 <Mail size={14} className="text-accent/40" />
-                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">SECURE@ERLIFESTYLES.COM</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">ERLIFESTYLES@GMAIL.COM</span>
               </li>
               <li className="flex items-center gap-4">
                 <Phone size={14} className="text-accent/40" />
-                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">+63 900 123 4567</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">+63 970 283 9443</span>
               </li>
               <li className="flex items-center gap-4">
                 <MapPin size={14} className="text-accent/40" />
@@ -50,7 +51,7 @@ export default function Footer() {
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex gap-2 items-center">
             <div className="w-2 h-2 rounded-full bg-accent"></div>
-            <p className="text-[9px] uppercase tracking-[0.4em] font-mono font-bold text-white/20">Operational © {new Date().getFullYear()} ER Lifestyles</p>
+            <p className="text-[9px] uppercase tracking-[0.4em] font-mono font-bold text-white/20">Developed by Edgardo, Jr. B. Rojas {new Date().getFullYear()} ER Lifestyles</p>
           </div>
           <p className="text-[9px] uppercase tracking-[0.4em] font-mono font-bold text-white/10 italic">Precise • Potent • Pure</p>
         </div>
