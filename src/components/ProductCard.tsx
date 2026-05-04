@@ -8,8 +8,11 @@ export default function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
   const [isFlying, setIsFlying] = useState(false);
   const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
+  const [showModal, setShowModal] = useState(false);
 
-  const handleAdd = (e: React.MouseEvent) => {
+  const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
     // Get starting position
     const rect = e.currentTarget.getBoundingClientRect();
     setClickPos({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
@@ -46,7 +49,69 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
       </AnimatePresence>
 
-      <div className="bg-white h-full flex flex-col group relative border border-border rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/60 p-4"
+          >
+            <motion.div
+              initial={{ y: 40, opacity: 0, scale: 0.96 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 40, opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.2 }}
+              className="max-w-3xl w-full bg-white rounded-[2rem] overflow-hidden shadow-2xl"
+            >
+              <div className="relative">
+                <img
+                  src={product.imageUrl || `https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop`}
+                  alt={product.name}
+                  className="w-full h-80 object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-primary shadow-md hover:bg-white"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                  <div>
+                    <h3 className="text-2xl font-serif font-bold text-primary mb-2">{product.name}</h3>
+                    <p className="text-sm uppercase tracking-[0.25em] text-accent font-bold">{product.category || 'Supplement'}</p>
+                  </div>
+                  <span className="text-xl font-bold text-accent">₱{product.price.toLocaleString()}</span>
+                </div>
+                <p className="text-slate-600 leading-relaxed mb-4">{product.description}</p>
+                {product.healthBenefits && (
+                  <div className="mb-4">
+                    <h4 className="text-sm font-bold uppercase tracking-wider text-primary mb-2">Health Benefits</h4>
+                    <p className="text-slate-500 text-sm leading-relaxed">{product.healthBenefits}</p>
+                  </div>
+                )}
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-xs uppercase tracking-widest font-bold text-slate-500 bg-slate-100 px-3 py-2 rounded-full">Stock: {product.stock}</span>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleAdd(e); }}
+                    className="px-6 py-3 bg-primary text-white rounded-full text-xs uppercase tracking-widest font-bold hover:bg-accent transition-all"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div
+        onClick={() => setShowModal(true)}
+        className="bg-white h-full flex flex-col group relative border border-border rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 cursor-pointer"
+      >
         <div className="relative aspect-square overflow-hidden bg-slate-50">
           <img 
             src={product.imageUrl || `https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop`} 
